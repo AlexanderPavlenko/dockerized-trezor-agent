@@ -1,0 +1,1 @@
+Allows to run [trezor-agent](https://github.com/romanz/trezor-agent/) in Docker on macOS, because Python does segfault.

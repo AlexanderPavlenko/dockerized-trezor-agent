@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+for item in $(ls -1 ~/.ssh/trezor); do
+  echo "<$(basename "$item")|nist256p1>"
+done

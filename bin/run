@@ -1,3 +1,7 @@
 #!/usr/bin/env sh
+sudo ifconfig lo0 alias 172.16.123.1
+kill $(lsof -i tcp:21325 | grep CLOSE_WAIT | cut -f3 -d' ')
+export TREZOR_PATH=$(trezorctl list | grep bridge)
 cd $(dirname "$0")/..
+rm -f .overmind.sock
 overmind start

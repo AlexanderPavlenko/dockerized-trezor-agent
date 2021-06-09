@@ -8,13 +8,14 @@ services:
     volumes:
     - './config:/config'
     environment:
-      TREZOR_PATH: 'bridge:lib04'
+      TREZOR_PATH: '${TREZOR_PATH}'
       TREZOR_BRIDGE: '172.16.123.1:21325'
       SSH_AUTH_SOCK: '/root/ssh-agent.sock'
     command: |
       sh -c "
         socat TCP-LISTEN:21325,bind=127.0.0.1,fork,reuseaddr TCP:$${TREZOR_BRIDGE} &
         socat TCP-LISTEN:22222,bind=0.0.0.0,fork,reuseaddr UNIX-CONNECT:$${SSH_AUTH_SOCK} &
+        echo $${TREZOR_PATH}
         trezor-agent --verbose --foreground --sock-path $${SSH_AUTH_SOCK} /config/ssh-agent.conf
       "
     ports:
